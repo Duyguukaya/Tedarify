@@ -33,7 +33,7 @@ class _TedarikyukleState extends State<Tedarikyukle> {
     }
   }
 
-  // Firebase'e veri yükleme
+  
   void _uploadData() async {
     if (_formKey.currentState?.validate() ?? false) {
       String supplyName = _supplyNameController.text;
@@ -43,25 +43,25 @@ class _TedarikyukleState extends State<Tedarikyukle> {
           ? "${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}"
           : "No date selected";
 
-      // Firebase Firestore'a veri ekleme
+      
       try {
-        User? user = FirebaseAuth.instance.currentUser; // Kullanıcıyı al
+        User? user = FirebaseAuth.instance.currentUser; 
         if (user != null) {
-          // Veriyi Firestore'da 'supplies' koleksiyonuna ekle
+          
           await FirebaseFirestore.instance.collection('supplies').add({
-            'userId': user.uid, // Kullanıcı kimliği
+            'userId': user.uid, 
             'supplyName': supplyName,
             'supplyContent': supplyContent,
             'industry': industry,
             'lastDate': lastDate,
           });
 
-          // Başarı mesajı
+          
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Data uploaded successfully!')),
           );
 
-          // Profil sayfasına yönlendir
+          
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Profilim()),
@@ -70,7 +70,7 @@ class _TedarikyukleState extends State<Tedarikyukle> {
           throw Exception("User not logged in");
         }
       } catch (e) {
-        // Hata mesajı
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error uploading data: $e')),
         );
@@ -153,7 +153,7 @@ class _TedarikyukleState extends State<Tedarikyukle> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
-                      _uploadData(); // Veri yükleme fonksiyonunu çağır.
+                      _uploadData(); 
                     }
                   },
                   child: Text(
