@@ -7,7 +7,7 @@ class Kaydedilenler extends StatefulWidget {
   @override
   State<Kaydedilenler> createState() => _KaydedilenlerState();
 }
-
+//
 class _KaydedilenlerState extends State<Kaydedilenler> {
   List<Map<String, dynamic>> savedSupplies = [
     {
