@@ -84,9 +84,9 @@ class _DetaysayfaState extends State<Detaysayfa> {
         const SnackBar(content: Text('Supply updated successfully!')),
       );
 
-      // Profilim sayfasına dön ve veriyi güncelle
+      
       Navigator.pop(
-          context, true); // true göndererek profil sayfasında güncelleme yap
+          context, true); 
     }
   }
 
@@ -101,8 +101,8 @@ class _DetaysayfaState extends State<Detaysayfa> {
       const SnackBar(content: Text('Supply deleted successfully!')),
     );
 
-    // Profilim sayfasına dön ve güncelleme yapılacak bilgiyi gönder
-    Navigator.pop(context, true); // true göndererek profil sayfasını güncelle
+    
+    Navigator.pop(context, true); 
   }
 
   Future<void> _pickDate() async {
