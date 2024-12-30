@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Firebase Auth import
-import 'package:cloud_firestore/cloud_firestore.dart'; // Firestore import
+import 'package:firebase_auth/firebase_auth.dart'; 
+import 'package:cloud_firestore/cloud_firestore.dart'; 
 import 'package:tedarify/renkler.dart';
 
 class Kayitsayfa extends StatefulWidget {
@@ -36,7 +36,7 @@ class _KayitsayfaState extends State<Kayitsayfa> {
         password: _passwordController.text.trim(),
       );
 
-      // Kullanıcı bilgilerini Firestore'da sakla
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredential.user!.uid)
@@ -49,11 +49,11 @@ class _KayitsayfaState extends State<Kayitsayfa> {
         'created_at': FieldValue.serverTimestamp(),
       });
 
-      // Başarılı mesajı göster ve giriş sayfasına dön
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Registration successful!")),
       );
-      Navigator.pop(context); // Giriş sayfasına dönmek için
+      Navigator.pop(context); 
     } catch (e) {
       print("Error: $e");
       ScaffoldMessenger.of(context).showSnackBar(
@@ -115,7 +115,7 @@ class _KayitsayfaState extends State<Kayitsayfa> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          _registerUser(); // Firebase'e kullanıcı kaydı
+                          _registerUser(); 
                         }
                       },
                       style: ElevatedButton.styleFrom(
