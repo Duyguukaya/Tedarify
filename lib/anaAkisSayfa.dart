@@ -42,7 +42,7 @@ class _AnaakissayfaState extends State<Anaakissayfa> {
           .get();
       final ownerId = supplyDoc['userId'];
 
-      // Başvuru kaydını applications koleksiyonuna ekle
+      
       final applicationRef =
           FirebaseFirestore.instance.collection('applications').doc();
       await applicationRef.set({
@@ -52,7 +52,7 @@ class _AnaakissayfaState extends State<Anaakissayfa> {
         'timestamp': FieldValue.serverTimestamp(),
       });
 
-      // Başvuru yapılan tedarik kaydını güncelle
+      
       await FirebaseFirestore.instance
           .collection('supplies')
           .doc(supplyId)
@@ -60,7 +60,7 @@ class _AnaakissayfaState extends State<Anaakissayfa> {
         'applied': FieldValue.arrayUnion([userId]),
       });
 
-      // Başvurulan tedarik bilgilerini kullanıcı profiline ekle
+      
       final userApplicationsRef = FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
@@ -73,7 +73,7 @@ class _AnaakissayfaState extends State<Anaakissayfa> {
         'timestamp': FieldValue.serverTimestamp(),
       });
 
-      // Bildirimi tedarik sahibine gönder
+      
       final notificationRef =
           FirebaseFirestore.instance.collection('notifications').doc();
       await notificationRef.set({
@@ -118,13 +118,13 @@ class _AnaakissayfaState extends State<Anaakissayfa> {
 
     try {
       await FirebaseFirestore.instance.collection('my_sharings').add({
-        'userId': currentUser.uid, // Şu anki kullanıcı ID'si
-        'supplyId': supplyId, // Paylaşılan tedarik ID'si
-        'sharedAt': Timestamp.now(), // Paylaşım tarihi
+        'userId': currentUser.uid, 
+        'supplyId': supplyId, 
+        'sharedAt': Timestamp.now(), 
       });
       debugPrint("Sharing added successfully!");
       addToMySharings(
-          supplyId); // Kullanıcının 'my_sharings' koleksiyonuna ekle
+          supplyId); 
     } catch (e) {
       debugPrint("Error while sharing supply: $e");
     }
@@ -236,7 +236,7 @@ class _AnaakissayfaState extends State<Anaakissayfa> {
                   .collection('supplies')
                   .where('userId',
                       isNotEqualTo: FirebaseAuth.instance.currentUser
-                          ?.uid) // Giriş yapan kullanıcıyı dışla
+                          ?.uid) 
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -290,7 +290,7 @@ class _AnaakissayfaState extends State<Anaakissayfa> {
                                               "${supply['supplyName']} shared!")),
                                     );
                                     shareSupply(supply
-                                        .id); // supplyId tedarik ilanının ID'sidir
+                                        .id); 
                                   },
                                 ),
                                 IconButton(
@@ -307,10 +307,10 @@ class _AnaakissayfaState extends State<Anaakissayfa> {
                                 ElevatedButton(
                                   onPressed: () async {
                                     await applyForSupply(
-                                        supply.id, context); // Başvuru yap
+                                        supply.id, context); 
                                     setState(() {
                                       buttonStates[index] =
-                                          'Applied'; // Buton metnini 'Applied' yap
+                                          'Applied'; 
                                     });
                                   },
                                   child: Text(
@@ -389,12 +389,12 @@ class _AnaakissayfaState extends State<Anaakissayfa> {
 class CustomSearchDelegate extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
-    // Arama çubuğunda kullanıcı "clear" butonuna basınca yapılacak işlemler
+    
     return [
       IconButton(
         icon: Icon(Icons.clear),
         onPressed: () {
-          query = ''; // Sorguyu temizle
+          query = ''; 
         },
       ),
     ];
@@ -402,18 +402,18 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget? buildLeading(BuildContext context) {
-    // Arama çubuğunda geri gitme ikonu
+    
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
-        close(context, null); // Arama ekranını kapat
+        close(context, null); 
       },
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // Kullanıcı arama yaptıktan sonra arama sonuçlarını göster
+    
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('supplies')
@@ -434,8 +434,7 @@ class CustomSearchDelegate extends SearchDelegate {
               title: Text(supply['supplyName'] ?? ''),
               subtitle: Text('Sector: ${supply['industry']}'),
               onTap: () {
-                // Arama sonuçlarına tıklandığında yapılacak işlemler
-                // Örneğin, tıklanan tedarik hakkında detaylı bilgi göstermek
+                
               },
             );
           },
@@ -446,7 +445,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // Kullanıcı yazarken öneriler göstermek
+    
     return buildResults(context);
   }
 }
